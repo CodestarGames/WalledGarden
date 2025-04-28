@@ -6,7 +6,6 @@ import { parseLine } from '@/utils/dialogueParser';
 import { BaseScene } from '@scenes/BaseScene.ts';
 import { gsap } from 'gsap';
 import { loadAvatarTexture, loadEmojiTexture } from '@scenes/MagicWords/textureLoaders.ts';
-import { MenuScene } from '@scenes/MenuScene.ts';
 
 const characterOffset = 180;
 

@@ -19,17 +19,13 @@ export const loadAvatarTexture = async (avatar: AvatarData): Promise<LoadAvatarT
 };
 // Loads textures for emojis
 export const loadEmojiTexture = async (emoji: Emoji): Promise<LoadTexturePromiseData | null> => {
-    try {
-        await Assets.load({
-            alias: emoji.name,
-            src: emoji.url,
-            format: 'png',
-            loadParser: 'loadTextures',
-        });
+    await Assets.load({
+        alias: emoji.name,
+        src: emoji.url,
+        format: 'png',
+        loadParser: 'loadTextures',
+    });
 
-        const texture = Texture.from(emoji.name);
-        return { name: emoji.name, texture };
-    } catch (fetchError) {
-        return null;
-    }
+    const texture = Texture.from(emoji.name);
+    return { name: emoji.name, texture };
 };
