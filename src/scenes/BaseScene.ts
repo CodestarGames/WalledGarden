@@ -53,6 +53,61 @@ export abstract class BaseScene implements IScene {
         this.backBtn = button;
     }
 
+    public createFullScreenButton(): void {
+        let isFullscreen = !!document.fullscreenElement;
+        const fullscreenButton = new Graphics()
+            .beginFill(0xffffff)
+            .drawRoundedRect(0, 0, 136, 80, 15)
+            .endFill()
+            .beginFill(0x25a525)
+            .drawRoundedRect(8, 8, 120, 66, 15)
+            .endFill();
+
+        fullscreenButton.x = this.app.screen.width - fullscreenButton.width - 32;
+        fullscreenButton.y = 8;
+
+        const buttonText = new Text(isFullscreen ? 'Windowed' : 'Fullscreen', textStyles.BUTTON);
+
+        buttonText.x = fullscreenButton.width / 2 - buttonText.width / 2;
+        buttonText.y = fullscreenButton.height / 2 - buttonText.height / 2;
+
+        fullscreenButton.addChild(buttonText);
+        fullscreenButton.interactive = true;
+        fullscreenButton.on('pointerdown', () => {
+            toggleFullscreen();
+        });
+        fullscreenButton.on('mouseenter', () => {
+            fullscreenButton.y -= 4;
+        });
+        fullscreenButton.on('mouseleave', () => {
+            fullscreenButton.y += 4;
+        });
+
+        this.container.addChild(fullscreenButton);
+
+        function updateFullscreenButtonText() {
+            isFullscreen = !!document.fullscreenElement;
+            buttonText.text = isFullscreen ? 'Windowed' : 'Fullscreen';
+        }
+
+        async function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                {
+                    await document.documentElement.requestFullscreen();
+                    isFullscreen = true;
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    await document.exitFullscreen();
+                    isFullscreen = false;
+                }
+            }
+            updateFullscreenButtonText();
+        }
+
+        document.addEventListener('fullscreenchange', updateFullscreenButtonText);
+    }
+
     protected constructor() {
         this.app = SceneManagerSingleton.getInstance().app;
         this.container = new Container();

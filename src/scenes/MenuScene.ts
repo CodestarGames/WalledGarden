@@ -25,6 +25,7 @@ export class MenuScene extends BaseScene {
 
     public init(): void {
         this.setupUI();
+        this.createFullScreenButton();
     }
 
     public update(_delta: number): void {}
