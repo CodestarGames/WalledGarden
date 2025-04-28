@@ -1,0 +1,25 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+}
+
+#stats {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+#stats canvas {
+  width: max(100px, 10vw, 10vh);
+  height: max(60px, 6vh, 6vw);
+  user-select: none;
+}
