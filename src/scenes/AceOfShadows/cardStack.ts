@@ -47,6 +47,7 @@ export class CardStack {
         this.parentContainer.addChild(card);
     }
 
+    // arranges cards to be sorted into a stack
     public arrangeStack() {
         this.list.reverse().forEach((card, index) => {
             if (card.destroyed || gsap.isTweening(card)) return;

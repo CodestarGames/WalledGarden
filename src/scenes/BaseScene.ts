@@ -53,6 +53,7 @@ export abstract class BaseScene implements IScene {
         this.backBtn = button;
     }
 
+    // full screen button builder
     public createFullScreenButton(): void {
         let isFullscreen = !!document.fullscreenElement;
         const fullscreenButton = new Graphics()

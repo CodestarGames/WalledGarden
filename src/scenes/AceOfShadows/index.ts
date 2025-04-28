@@ -38,6 +38,7 @@ export class AceOfShadowsScene extends BaseScene {
         this.deckPool.arrangeStack();
     }
 
+    // position the stacks when screen resizes
     private positionStacks(screenWidth: number, screenHeight: number): void {
         const centerX = screenWidth / 2;
         const centerY = screenHeight / 2;
@@ -62,6 +63,7 @@ export class AceOfShadowsScene extends BaseScene {
         });
     }
 
+    // tween cards between stacks
     private moveCardToStack(slot: CardStack): void {
         let cardToMove = this.deckPool.popTopCard();
 

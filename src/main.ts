@@ -8,6 +8,7 @@ import { PreloaderScene } from '@scenes/PreloaderScene';
 
 import { Stats } from 'pixi-stats';
 
+// Sets up application and dev tools
 (async () => {
     const app = new Application<HTMLCanvasElement>({
         background: '#000080',

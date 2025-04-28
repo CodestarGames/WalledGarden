@@ -57,6 +57,7 @@ export class MenuScene extends BaseScene {
         });
     }
 
+    // menu button builder
     private createMenuButton(textStr: string, y: number, onClick: () => void): Graphics {
         const button = new Graphics()
             .beginFill(0xffffff)

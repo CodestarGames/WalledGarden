@@ -87,36 +87,37 @@ export class MagicWordsScene extends BaseScene {
 
         this.resize(this.app.renderer.width, this.app.renderer.height);
 
-        try {
-            const res = await fetch(magicWordsConf.API_ENDPOINT);
-            this.dialogueData = (await res.json()) as MagicWordsData;
+        // requests data from api endpoint
+        const res = await fetch(magicWordsConf.API_ENDPOINT);
+        this.dialogueData = (await res.json()) as MagicWordsData;
 
-            if (this.loadingText) this.loadingText.text = 'Loading Assets...';
+        if (this.loadingText) this.loadingText.text = 'Loading Assets...';
 
-            const emojiLoadPromise = this.loadEmojiTextures();
-            const avatarLoadPromise = this.loadAvatarTextures();
-            await Promise.all([emojiLoadPromise, avatarLoadPromise]);
+        const emojiLoadPromise = this.loadEmojiTextures();
+        const avatarLoadPromise = this.loadAvatarTextures();
+        await Promise.all([emojiLoadPromise, avatarLoadPromise]);
 
-            this.bg = new Graphics();
-            this.container.addChild(this.bg);
+        this.bg = new Graphics();
+        this.container.addChild(this.bg);
 
-            this.sprite1 = new Sprite(this.avatarTextures['Sheldon']);
-            this.container.addChild(this.sprite1);
-            this.sprite1.position.x = this.app.renderer.width * 0.5 - this.sprite1.width * 0.5;
-            this.sprite1.position.y = this.app.renderer.height - characterOffset;
+        // creates sprites for characters
 
-            this.sprite2 = new Sprite(this.avatarTextures['Penny']);
-            this.container.addChild(this.sprite2);
-            this.sprite2.position.x = this.app.renderer.width * 0.5 - characterOffset - this.sprite2.width * 0.5;
-            this.sprite2.position.y = this.app.renderer.height - characterOffset;
+        this.sprite1 = new Sprite(this.avatarTextures['Sheldon']);
+        this.container.addChild(this.sprite1);
+        this.sprite1.position.x = this.app.renderer.width * 0.5 - this.sprite1.width * 0.5;
+        this.sprite1.position.y = this.app.renderer.height - characterOffset;
 
-            this.sprite3 = new Sprite(this.avatarTextures['Leonard']);
-            this.container.addChild(this.sprite3);
-            this.sprite3.position.x = this.app.renderer.width * 0.5 + characterOffset - this.sprite3.width * 0.5;
-            this.sprite3.position.y = this.app.renderer.height - characterOffset;
+        this.sprite2 = new Sprite(this.avatarTextures['Penny']);
+        this.container.addChild(this.sprite2);
+        this.sprite2.position.x = this.app.renderer.width * 0.5 - characterOffset - this.sprite2.width * 0.5;
+        this.sprite2.position.y = this.app.renderer.height - characterOffset;
 
-            this.renderDialogue(this.app.renderer.width, this.app.renderer.height);
-        } catch (error) {}
+        this.sprite3 = new Sprite(this.avatarTextures['Leonard']);
+        this.container.addChild(this.sprite3);
+        this.sprite3.position.x = this.app.renderer.width * 0.5 + characterOffset - this.sprite3.width * 0.5;
+        this.sprite3.position.y = this.app.renderer.height - characterOffset;
+
+        this.renderDialogue(this.app.renderer.width, this.app.renderer.height);
     }
 
     private async loadEmojiTextures(): Promise<void> {
@@ -159,6 +160,7 @@ export class MagicWordsScene extends BaseScene {
         this.isTypingComplete = false;
     }
 
+    // Builds display objects from sections parsed out of the api data.
     private BuildDialogueRender(width: number): void {
         let currentY = this.DIALOGUE_PADDING;
         let maxContentWidth = 0;
